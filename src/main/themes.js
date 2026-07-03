@@ -1,0 +1,226 @@
+'use strict';
+
+// default themes for the app, each theme is a set of colors for the ui elements inspired by undertale/deltarune
+
+const THEMES = [
+  {
+    id: 'title-screen',
+    name: 'Title Screen',
+    colors: {
+      bg: '#0d0d0f',
+      card: '#18181d',
+      cardBorder: '#2a2a32',
+      text: '#f2f2f4',
+      muted: '#8b8b96',
+      accent: '#ffd23f',
+      accentDim: '#5a5226',
+      ok: '#57d977',
+      bad: '#e06464',
+    },
+  },
+  {
+    id: 'ruins',
+    name: 'Ruins',
+    colors: {
+      bg: '#160f1f',
+      card: '#211633',
+      cardBorder: '#3a2454',
+      text: '#f2eef9',
+      muted: '#a191b8',
+      accent: '#b388ff',
+      accentDim: '#4a3566',
+      ok: '#57d977',
+      bad: '#e06464',
+    },
+  },
+  {
+    id: 'snowdin',
+    name: 'Snowdin',
+    colors: {
+      bg: '#0a1420',
+      card: '#122335',
+      cardBorder: '#1f3a52',
+      text: '#eef6fb',
+      muted: '#84a3b8',
+      accent: '#6ec6ff',
+      accentDim: '#1f4a63',
+      ok: '#57d977',
+      bad: '#e06464',
+    },
+  },
+  {
+    id: 'waterfall',
+    name: 'Waterfall',
+    colors: {
+      bg: '#060f1f',
+      card: '#0c1d3a',
+      cardBorder: '#15315c',
+      text: '#e8f0fb',
+      muted: '#6f8fb8',
+      accent: '#3f7fe0',
+      accentDim: '#16335c',
+      ok: '#57d977',
+      bad: '#e06464',
+    },
+  },
+  {
+    id: 'hotland',
+    name: 'Hotland',
+    colors: {
+      bg: '#1a0d08',
+      card: '#2b140c',
+      cardBorder: '#4a2012',
+      text: '#fbe9df',
+      muted: '#b88468',
+      accent: '#ff7f3f',
+      accentDim: '#6b3014',
+      ok: '#6bdb8a',
+      bad: '#ff5252',
+    },
+  },
+  {
+    id: 'judgement-hall',
+    name: 'Judgement Hall',
+    colors: {
+      bg: '#120f06',
+      card: '#221c0c',
+      cardBorder: '#4a3c14',
+      text: '#fdf6e3',
+      muted: '#b8a96f',
+      accent: '#ffe066',
+      accentDim: '#6b5a1c',
+      ok: '#57d977',
+      bad: '#e06464',
+    },
+  },
+  {
+    id: 'true-lab',
+    name: 'True Lab',
+    colors: {
+      bg: '#0a140d',
+      card: '#122318',
+      cardBorder: '#1f3d28',
+      text: '#e8f5ec',
+      muted: '#7fa888',
+      accent: '#b6ff3f',
+      accentDim: '#2e4a1c',
+      ok: '#57d977',
+      bad: '#e06464',
+    },
+  },
+  {
+    id: 'grillbys',
+    name: "Grillby's",
+    colors: {
+      bg: '#160f08',
+      card: '#261910',
+      cardBorder: '#4a2f18',
+      text: '#fbeede',
+      muted: '#b08f68',
+      accent: '#ffb238',
+      accentDim: '#5c3c14',
+      ok: '#57d977',
+      bad: '#e06464',
+    },
+  },
+  {
+    id: 'genocide',
+    name: 'Genocide Route',
+    colors: {
+      bg: '#0a0303',
+      card: '#1a0606',
+      cardBorder: '#3d0a0a',
+      text: '#f5dede',
+      muted: '#a16a6a',
+      accent: '#ff2d4d',
+      accentDim: '#5c0e16',
+      ok: '#57d977',
+      bad: '#ff3860',
+    },
+  },
+  {
+    id: 'deltarune-title',
+    name: 'Deltarune',
+    colors: {
+      bg: '#080814',
+      card: '#11122a',
+      cardBorder: '#232454',
+      text: '#eef0fb',
+      muted: '#8d90b8',
+      accent: '#ffb84d',
+      accentDim: '#5c4319',
+      ok: '#57d977',
+      bad: '#e0445f',
+    },
+  },
+  {
+    id: 'cyber-world',
+    name: 'Cyber World',
+    colors: {
+      bg: '#070b1a',
+      card: '#0f1530',
+      cardBorder: '#1f2a5c',
+      text: '#eafdf2',
+      muted: '#7d9da6',
+      accent: '#3dffc0',
+      accentDim: '#155c45',
+      ok: '#4dd9ff',
+      bad: '#ff3f6e',
+    },
+  },
+  {
+    id: 'tv-world',
+    name: 'TV World',
+    colors: {
+      bg: '#170810',
+      card: '#2b0f18',
+      cardBorder: '#4a1a26',
+      text: '#fbeee4',
+      muted: '#ad7e8a',
+      accent: '#e0b84d',
+      accentDim: '#5c4419',
+      ok: '#57d977',
+      bad: '#ff2d4d',
+    },
+  },
+  {
+    id: 'dark-sanctuary',
+    name: 'Dark Sanctuary',
+    colors: {
+      bg: '#0a0e1e',
+      card: '#141a36',
+      cardBorder: '#262f5c',
+      text: '#eef0fb',
+      muted: '#7d87b8',
+      accent: '#e0399c',
+      accentDim: '#4a1f42',
+      ok: '#57d977',
+      bad: '#ff4f70',
+    },
+  },
+  {
+    id: 'flower-kingdom',
+    name: 'Flower Kingdom',
+    colors: {
+      bg: '#1f0f1a',
+      card: '#321626',
+      cardBorder: '#5c2840',
+      text: '#ffeee0',
+      muted: '#c79aa8',
+      accent: '#ff9d5c',
+      accentDim: '#663318',
+      ok: '#57d977',
+      bad: '#ff4f7a',
+    },
+  },
+];
+
+function list() {
+  return THEMES;
+}
+
+function find(id) {
+  return THEMES.find((t) => t.id === id) || THEMES[0];
+}
+
+module.exports = { list, find };

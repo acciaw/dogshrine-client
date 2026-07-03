@@ -1,0 +1,8 @@
+node_modules/
+dist/
+out/
+*.log
+.DS_Store
+
+# scratch clone for the sans-fight easter egg, not the real integration yet
+public/
