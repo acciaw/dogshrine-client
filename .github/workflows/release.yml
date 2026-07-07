@@ -1,10 +1,6 @@
 name: Release
 
-# builds the Dog Shrine desktop launcher for Windows, Linux, and macOS in parallel and
-# publishes all three to a single GitHub Release matching the pushed tag. electron-updater
-# (src/main/updater.js) reads that release back to check for updates, so the tag pattern
-# here and GITHUB_OWNER/GITHUB_REPO in src/main/updateConfig.js have to keep pointing at
-# this same repo (this workflow lives in the client-only repo, not a dogshrine monorepo).
+# builds the Dog Shrine desktop launcher for Windows, Linux, and macOS
 on:
   push:
     tags:
@@ -25,12 +21,24 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 26
 
       - run: npm ci
+        shell: bash
 
       - name: Build and publish
-        run: npx electron-builder --publish always
+        shell: bash
+        run: |
+          echo "node: $(node -v)"
+          echo "pwd: $(pwd)"
+          set +e
+          node ./node_modules/electron-builder/out/cli/cli.js --publish always > build-output.log 2>&1
+          code=$?
+          set -e
+          echo "---- build-output.log (${code} exit) ----"
+          cat build-output.log
+          echo "---- end build-output.log ----"
+          exit $code
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # unsigned build: no Apple Developer cert is configured, so force electron-builder
