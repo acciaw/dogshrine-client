@@ -1,7 +1,7 @@
 {
   "name": "dogshrine",
   "productName": "Dog Shrine",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Unified launcher for Undertale, Undertale Yellow, and Deltarune",
   "main": "src/main/main.js",
   "author": "Acciaw <contact@accw.dev>",
