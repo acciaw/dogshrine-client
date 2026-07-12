@@ -23,14 +23,6 @@ jobs:
         with:
           node-version: 26
 
-      # uiohook-napi (keystroke hook) gets rebuilt from source on linux and
-      # libuiohook needs the x11 dev headers, absent on the bare runner
-      - name: install linux build deps
-        if: runner.os == 'Linux'
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libx11-dev libxtst-dev libxt-dev libxinerama-dev libx11-xcb-dev libxkbcommon-dev libxkbcommon-x11-dev
-
       - run: npm ci
         shell: bash
 

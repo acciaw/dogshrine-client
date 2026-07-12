@@ -11,6 +11,10 @@ module.exports = {
     buildResources: 'build',
   },
   files: ['src/**/*', 'package.json'],
+  // uiohook-napi is n-api and ships prebuilt binaries for every platform, and
+  // ffmpeg-static is just a binary, so nothing needs recompiling against electron.
+  // skipping the rebuild avoids needing a c toolchain + x11 headers in ci
+  npmRebuild: false,
   // uiohook-napi and ffmpeg-static ship native binaries, keep them unpacked so they can run from a packaged build
   asarUnpack: ['**/node_modules/uiohook-napi/**', '**/node_modules/ffmpeg-static/**'],
   // the injected native overlay dlls + injectors, resolved from process.resourcesPath/native-bin (see native.js)
