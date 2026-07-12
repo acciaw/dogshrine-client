@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline';" />
+    <link rel="stylesheet" href="overlay.css" />
+    <style>
+      html,
+      body {
+        background: #14141a;
+        color: #f2f2f2;
+        font-family: 'VT323', monospace;
+        overflow-y: auto;
+      }
+      body {
+        padding: 16px;
+      }
+      h1 {
+        font-size: 26px;
+        color: #ffcf3f;
+        margin-bottom: 4px;
+      }
+      .kc-hint {
+        font-size: 16px;
+        color: #9a9a9a;
+        margin-bottom: 12px;
+      }
+      .kc-preview {
+        display: flex;
+        justify-content: center;
+        padding: 14px;
+        background: #0d0d0f;
+        border: 1px solid #2a2a33;
+        border-radius: 8px;
+        margin-bottom: 14px;
+      }
+      .kc-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        font-size: 20px;
+        padding: 4px 2px;
+        border-bottom: 1px solid #23232b;
+      }
+      .kc-row-label {
+        color: #b9b9b9;
+        text-transform: capitalize;
+        flex: 1;
+      }
+      .kc-row-key {
+        color: #ffcf3f;
+        min-width: 120px;
+        text-align: right;
+      }
+      .kc-btn {
+        font: inherit;
+        font-size: 17px;
+        min-width: 96px;
+        background: #1b1b22;
+        color: #f2f2f2;
+        border: 1px solid #3a3a44;
+        border-radius: 6px;
+        padding: 4px 10px;
+        cursor: pointer;
+      }
+      .kc-btn:hover {
+        border-color: #ffcf3f;
+      }
+      .kc-btn.arming {
+        border-color: #ffcf3f;
+        color: #ffcf3f;
+      }
+      .kc-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 14px;
+      }
+      .kc-warn {
+        color: #e0503f;
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Keystroke display</h1>
+    <div class="kc-hint">Click Rebind on a key, then press the key you want it to show.</div>
+    <div id="kc-warn" class="kc-warn"></div>
+    <div class="kc-preview"><div id="kc-preview-mount"></div></div>
+    <div id="kc-rows"></div>
+    <div class="kc-actions">
+      <button id="kc-reset" class="kc-btn">Reset to arrows + Z X Shift Enter</button>
+    </div>
+
+    <script src="keystrokes.js"></script>
+    <script src="keystroke-config.js"></script>
+  </body>
+</html>

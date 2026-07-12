@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; media-src 'self' data:;" />
+    <link rel="stylesheet" href="overlay.css" />
+    <style>
+      /* the whole frameless window is a drag handle since widgets are display-only */
+      html,
+      body {
+        -webkit-app-region: drag;
+        cursor: move;
+      }
+      #mount {
+        position: absolute;
+        top: 4px;
+        left: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="mount"></div>
+    <script src="lss.js"></script>
+    <script src="livesplit.js"></script>
+    <script src="keystrokes.js"></script>
+    <script src="widget-window.js"></script>
+  </body>
+</html>

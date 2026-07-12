@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; media-src 'self' data:;" />
+    <link rel="stylesheet" href="overlay.css" />
+  </head>
+  <body>
+    <div id="ov-root">
+      <div id="ov-rec-badge" class="ov-rec-badge hidden">&#9679; REC</div>
+
+      <div id="ov-panel" class="ov-panel hidden">
+        <div class="ov-panel-title">Overlay</div>
+        <label><input type="checkbox" data-toggle="livesplit.enabled" /> LiveSplit</label>
+        <label class="ov-sub"><input type="checkbox" data-toggle="livesplit.poppedOut" /> own window</label>
+        <label><input type="checkbox" data-toggle="keystrokes.enabled" /> Keystrokes</label>
+        <label class="ov-sub"><input type="checkbox" data-toggle="keystrokes.poppedOut" /> own window</label>
+
+        <div class="ov-panel-sub">Splits</div>
+        <select id="ov-splits-select" class="ov-select"></select>
+        <div class="ov-panel-actions">
+          <button id="ov-splits-load">Load .lss</button>
+          <button id="ov-splits-export">Export</button>
+        </div>
+
+        <div class="ov-panel-sub">Capture</div>
+        <div class="ov-panel-actions">
+          <button id="ov-record">Record</button>
+          <button id="ov-replay">Save replay</button>
+        </div>
+        <button id="ov-exit" class="ov-exit">Exit focus (esc)</button>
+      </div>
+
+      <div id="ov-focus-hint" class="ov-focus-hint hidden">focus mode &mdash; drag widgets, esc to exit</div>
+      <div id="ov-toast" class="ov-toast hidden"></div>
+    </div>
+
+    <script src="lss.js"></script>
+    <script src="livesplit.js"></script>
+    <script src="keystrokes.js"></script>
+    <script src="overlay.js"></script>
+  </body>
+</html>

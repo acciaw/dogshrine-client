@@ -1,0 +1,32 @@
+{
+  "name": "dogshrine",
+  "productName": "Dog Shrine",
+  "version": "0.1.0",
+  "description": "Unified launcher for Undertale, Undertale Yellow, and Deltarune",
+  "main": "src/main/main.js",
+  "author": "Acciaw <contact@accw.dev>",
+  "scripts": {
+    "start": "electron .",
+    "build:native": "bash -c 'cd ../native-overlay && bash build.sh && cp build/dogshrine-overlay-x64.dll build/dogshrine-overlay-x86.dll build/injector-x64.exe build/injector-x86.exe ../client/native-bin/'",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "dist:win": "electron-builder --win",
+    "dist:linux": "electron-builder --linux",
+    "dist:mac": "electron-builder --mac"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^43.0.0",
+    "electron-builder": "^26.15.3"
+  },
+  "dependencies": {
+    "electron-updater": "^6.8.9",
+    "ffmpeg-static": "^5.3.0",
+    "uiohook-napi": "^1.5.5"
+  },
+  "allowScripts": {
+    "electron-winstaller@5.4.0": true,
+    "uiohook-napi@1.5.5": true,
+    "ffmpeg-static@5.3.0": true
+  }
+}

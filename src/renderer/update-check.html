@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline';" />
+    <title>Dog Shrine — Updating</title>
+    <style>
+      @font-face {
+        font-family: "VT323";
+        src: url("fonts/VT323-Regular.ttf") format("truetype");
+        font-weight: 400;
+        font-style: normal;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
+        background: #0d0d0f;
+        color: #f2f2f4;
+        font-family: "VT323", ui-monospace, monospace;
+        -webkit-user-select: none;
+        user-select: none;
+      }
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+        padding: 20px;
+        border: 1px solid #2a2a32;
+      }
+      .update-logo {
+        width: 48px;
+        height: 48px;
+        image-rendering: pixelated;
+      }
+      .update-text {
+        font-size: 22px;
+        text-align: center;
+      }
+      .update-progress-track {
+        width: 100%;
+        height: 10px;
+        background: #18181d;
+        border: 1px solid #2a2a32;
+      }
+      .update-progress-fill {
+        height: 100%;
+        width: 0%;
+        background: #ffd23f;
+        transition: width 0.15s linear;
+      }
+      .hidden {
+        display: none !important;
+      }
+      #update-skip {
+        background: transparent;
+        border: 1px solid #2a2a32;
+        color: #8b8b96;
+        font-family: inherit;
+        font-size: 16px;
+        padding: 4px 10px;
+        cursor: pointer;
+      }
+      #update-skip:hover {
+        color: #f2f2f4;
+        border-color: #8b8b96;
+      }
+    </style>
+  </head>
+  <body>
+    <img src="../img/app/dogshrine.webp" alt="" class="update-logo" />
+    <div id="update-text" class="update-text">Checking for updates…</div>
+    <div id="update-progress-track" class="update-progress-track hidden">
+      <div id="update-progress-fill" class="update-progress-fill"></div>
+    </div>
+    <button id="update-skip">Skip</button>
+    <script src="update-check.js"></script>
+  </body>
+</html>

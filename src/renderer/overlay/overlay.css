@@ -1,0 +1,357 @@
+@font-face {
+  font-family: 'VT323';
+  src: url('../fonts/VT323-Regular.ttf') format('truetype');
+  font-display: swap;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: transparent;
+  font-family: 'VT323', monospace;
+  color: #f2f2f2;
+  user-select: none;
+  cursor: default;
+}
+
+#ov-root {
+  position: absolute;
+  inset: 0;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* widgets float where the user placed them */
+.ov-widget {
+  position: absolute;
+  transform-origin: top left;
+  pointer-events: none;
+}
+
+/* passive mode is click-through, focus mode lets you grab widgets */
+body.ov-focus .ov-widget {
+  pointer-events: auto;
+}
+body.ov-focus .ov-widget {
+  outline: 1px dashed rgba(255, 255, 255, 0.35);
+}
+
+.ov-handle {
+  display: none;
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #0d0d0f;
+  background: #ffcf3f;
+  padding: 1px 8px;
+  cursor: move;
+}
+body.ov-focus .ov-handle {
+  display: block;
+}
+
+/* rec badge, always visible while recording */
+.ov-rec-badge {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 20px;
+  color: #ff4d4d;
+  background: rgba(10, 10, 15, 0.7);
+  padding: 2px 10px;
+  border-radius: 4px;
+  pointer-events: none;
+  animation: ov-blink 1.2s steps(2, start) infinite;
+}
+@keyframes ov-blink {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+/* focus-mode panel */
+.ov-panel {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  min-width: 180px;
+  background: rgba(12, 12, 16, 0.92);
+  border: 1px solid #ffcf3f;
+  border-radius: 8px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 19px;
+  pointer-events: auto;
+}
+.ov-panel-title {
+  font-size: 22px;
+  color: #ffcf3f;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.ov-panel label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+.ov-panel label.ov-sub {
+  padding-left: 18px;
+  font-size: 17px;
+  color: #b9b9b9;
+}
+.ov-panel-sub {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #8a8a8a;
+  margin-top: 6px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding-top: 6px;
+}
+.ov-select {
+  font: inherit;
+  font-size: 17px;
+  width: 100%;
+  background: #1b1b22;
+  color: #f2f2f2;
+  border: 1px solid #3a3a44;
+  border-radius: 5px;
+  padding: 3px 6px;
+}
+.ov-panel-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: 4px;
+}
+.ov-panel button {
+  font: inherit;
+  font-size: 18px;
+  background: #1b1b22;
+  color: #f2f2f2;
+  border: 1px solid #3a3a44;
+  border-radius: 5px;
+  padding: 3px 8px;
+  cursor: pointer;
+}
+.ov-panel button:hover {
+  border-color: #ffcf3f;
+}
+.ov-exit {
+  margin-top: 4px;
+}
+
+.ov-focus-hint {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(12, 12, 16, 0.85);
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 18px;
+  color: #ffcf3f;
+}
+
+/* transient recording feedback */
+.ov-toast {
+  position: absolute;
+  top: 44px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 60%;
+  background: rgba(12, 12, 16, 0.92);
+  border: 1px solid #ffcf3f;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 18px;
+  color: #f2f2f2;
+  pointer-events: none;
+}
+.ov-toast.ov-toast-err {
+  border-color: #e0503f;
+  color: #ffb3aa;
+}
+
+/* livesplit widget */
+.ls-widget {
+  min-width: 240px;
+  background: rgba(10, 10, 15, 0.74);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 20px;
+  line-height: 1.15;
+}
+.ls-title {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  color: #ffcf3f;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  padding-bottom: 4px;
+  margin-bottom: 4px;
+}
+.ls-cat {
+  color: #b9b9b9;
+  font-size: 17px;
+}
+.ls-segments {
+  display: flex;
+  flex-direction: column;
+}
+.ls-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 10px;
+  padding: 1px 0;
+}
+.ls-row.ls-current {
+  background: rgba(255, 207, 63, 0.16);
+}
+.ls-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ls-delta {
+  text-align: right;
+  min-width: 46px;
+}
+.ls-time {
+  text-align: right;
+  min-width: 64px;
+}
+.ls-dim {
+  color: #8a8a8a;
+}
+.ls-timer {
+  text-align: right;
+  font-size: 40px;
+  margin-top: 4px;
+  padding-top: 4px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+.ls-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 4px;
+  font-size: 15px;
+  color: #b9b9b9;
+}
+.ls-foot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.ls-foot-k {
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  color: #777;
+}
+
+/* delta + timer colors, matching livesplit conventions */
+.ahead-gaining {
+  color: #4bd76b;
+}
+.ahead-losing {
+  color: #8be6a0;
+}
+.behind-gaining {
+  color: #e88b7d;
+}
+.behind-losing {
+  color: #e0503f;
+}
+.gold {
+  color: #d4af37;
+}
+.ls-paused {
+  color: #9a9a9a;
+}
+
+/* keystrokes widget: fixed arrow cross + action row */
+.ks-widget {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  background: rgba(10, 10, 15, 0.5);
+  border-radius: 6px;
+  padding: 8px;
+}
+.ks-cross {
+  display: grid;
+  grid-template-columns: repeat(3, 40px);
+  grid-template-rows: repeat(2, 40px);
+  gap: 5px;
+}
+.ks-up {
+  grid-area: 1 / 2;
+}
+.ks-left {
+  grid-area: 2 / 1;
+}
+.ks-down {
+  grid-area: 2 / 2;
+}
+.ks-right {
+  grid-area: 2 / 3;
+}
+.ks-actions {
+  display: flex;
+  gap: 5px;
+}
+.ks-key {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+  padding: 0 6px;
+  font-size: 22px;
+  color: #f2f2f2;
+  background: rgba(0, 0, 0, 0.28);
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-radius: 6px;
+  box-sizing: border-box;
+  transition: background 0.06s ease, color 0.06s ease;
+}
+.ks-key.ks-wide {
+  min-width: 48px;
+  font-size: 18px;
+}
+.ks-key.ks-active {
+  background: #ffcf3f;
+  color: #0d0d0f;
+  border-color: #ffcf3f;
+}
+.ks-bps {
+  margin-top: 4px;
+  font-size: 18px;
+  color: #ffcf3f;
+  text-align: center;
+}
+.ks-bps-unit {
+  color: #b9b9b9;
+  font-size: 15px;
+}
+.ks-bps-peak {
+  color: #8a8a8a;
+  font-size: 15px;
+}

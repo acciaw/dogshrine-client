@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; media-src 'self' data:;" />
+    <title>Dog Shrine</title>
+    <link rel="icon" href="../img/app/icon.png" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <nav id="sidebar" class="sidebar">
+        <div class="sidebar-brand">
+          <img id="brand-logo" src="../img/app/dogshrine.webp" alt="Dog Shrine" title="Dog Shrine" />
+          <div class="brand-name">Dog Shrine</div>
+        </div>
+        <div class="sidebar-divider"></div>
+        <div class="nav-items">
+          <button class="nav-item" data-page="home" disabled title="Coming soon">
+            <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M4 20h16v2H4zm16-10h2v10h-2zM2 10h2v10H2zm2-2h2v2H4zm2-2h2v2H6zm2-2h2v2H8zm2-2h4v2h-4zm4 2h2v2h-2zm2 2h2v2h-2zm2 2h2v2h-2zM8 14h2v6H8zm2-2h4v2h-4zm4 2h2v6h-2z"/></svg></span>
+            <span>Hometown</span>
+          </button>
+          <button class="nav-item active" data-page="library">
+            <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M3 4h2v17H3zm4 4h2v13H7zm4-2h2v15h-2zm4 0h2v5h-2zm2 5h2v5h-2zm2 5h2v5h-2z"/></svg></span>
+            <span>Librarby</span>
+          </button>
+          <button class="nav-item" data-page="community" disabled title="Coming soon">
+            <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M4 2h16v2H4zm0 14h14v2H4zM2 4h2v12H2zm18 0h2v18h-2zm-2 14h2v2h-2z"/></svg></span>
+            <span>UnderNet</span>
+          </button>
+          <button class="nav-item" data-page="store">
+            <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M3 13h2v8H3zm2 8h14v2H5zm14-8h2v8h-2zm-9-2h4v2h-4zm4-2h4v2h-4zm4 2h4v2h-4zM6 9h4v2H6zm-4 2h4v2H2zM0 7h2v4H0zm2-2h2v2H2zm18 0h2v2h-2zm2 2h2v4h-2zM4 3h16v2H4zm6 12h4v2h-4zm-2 2h2v4H8zm6 0h2v4h-2z"/></svg></span>
+            <span>Tem Shop</span>
+          </button>
+        </div>
+        <div class="sidebar-divider"></div>
+        <button class="nav-item" data-page="settings">
+          <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M4 14h2v6H4zm6 0h2v6h-2zm-4-2h4v2H6zm0 8h4v2H6zm-4-4h2v2H2zm20-8h-4V6h4z"/><path d="M10 16h12v2H10zm4-8H2V6h12zm6-4v2h-2V4zm0 6V8h-2v2zm-6-8h4v2h-4zm0 10h4v-2h-4zm-2-8h2v2h-2zm0 6h2V8h-2z"/></svg></span>
+          <span>Settings</span>
+        </button>
+      </nav>
+
+      <div id="content-area" class="content-area">
+        <!-- Update banner (shown only when a newer release is found) -->
+        <div id="update-banner" class="update-banner hidden">
+          <span id="update-banner-text" class="update-banner-text"></span>
+          <span class="spacer"></span>
+          <button id="update-banner-download" class="primary">Download</button>
+          <button id="update-banner-dismiss" class="ghost">Dismiss</button>
+        </div>
+
+        <!-- Library screen -->
+        <div id="library" class="screen">
+          <header>
+            <h1>
+              <span class="title-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M3 4h2v17H3zm4 4h2v13H7zm4-2h2v15h-2zm4 0h2v5h-2zm2 5h2v5h-2zm2 5h2v5h-2z"/></svg></span>
+              Librarby
+            </h1>
+            <button id="refresh" class="ghost">Re-scan</button>
+          </header>
+          <main id="games" class="grid"></main>
+          <footer id="status"></footer>
+        </div>
+
+        <!-- Save-editor screen -->
+        <div id="editor" class="screen hidden">
+          <div class="editor-bar">
+            <button id="editor-back" class="ghost">← Librarby</button>
+            <span id="editor-title" class="editor-title"></span>
+            <span id="editor-savepath" class="savepath" title=""></span>
+            <span class="spacer"></span>
+            <button id="editor-openfolder">Open save folder</button>
+            <button id="editor-copypath">Copy path</button>
+            <button id="editor-reload" class="ghost">Reload</button>
+          </div>
+          <div id="editor-banner" class="banner hidden"></div>
+          <webview id="editor-view" class="editor-view"></webview>
+        </div>
+
+        <!-- Native Undertale save editor -->
+        <div id="ut-editor" class="screen hidden">
+          <div class="editor-bar">
+            <button id="ut-back" class="ghost">← Librarby</button>
+            <span class="editor-title">Undertale — save editor</span>
+            <span id="ut-savepath" class="savepath" title=""></span>
+            <span class="spacer"></span>
+            <div id="ut-slot-tabs" class="tabs"></div>
+            <button id="ut-save" class="primary">Save</button>
+          </div>
+          <div id="ut-banner" class="banner hidden"></div>
+          <div id="ut-body" class="ut-body"></div>
+        </div>
+
+        <!-- Save slots manager -->
+        <div id="slots-screen" class="screen hidden">
+          <div class="editor-bar">
+            <button id="slots-back" class="ghost">← Librarby</button>
+            <span id="slots-title" class="editor-title"></span>
+            <span id="slots-savepath" class="savepath" title=""></span>
+          </div>
+          <div id="slots-banner" class="banner hidden"></div>
+          <div class="slots-body">
+            <div class="slots-create">
+              <input id="slots-new-name" class="ut-input" type="text" placeholder="Name this save slot (e.g. Genocide — Sans)" />
+              <button id="slots-create-btn" class="primary">Save current as new slot</button>
+              <button id="slots-empty-btn" title="Creates an empty slot — load it to start the game from scratch">New empty slot</button>
+            </div>
+            <p class="ut-hint">
+              Loading a slot replaces your live save with the slot's. Your current
+              save is always backed up first — but close the game before loading.
+            </p>
+            <p id="slots-cloud-warning" class="ut-hint warn-hint hidden">
+              This game uses Steam Cloud — Steam can resync your old save right over a
+              slot you just loaded. Turn off Cloud saves for it (Steam → right-click the
+              game → Properties → General) if you're going to rely on slots.
+            </p>
+            <ul id="slots-list" class="slots-list"></ul>
+          </div>
+        </div>
+
+        <!-- LiveSplit splits manager -->
+        <div id="splits-screen" class="screen hidden">
+          <div class="editor-bar">
+            <button id="splits-back" class="ghost">← Librarby</button>
+            <span id="splits-title" class="editor-title"></span>
+          </div>
+          <div id="splits-banner" class="banner hidden"></div>
+          <div class="slots-body">
+            <div class="slots-create">
+              <button id="splits-import-btn" class="primary">Import .lss…</button>
+            </div>
+            <p class="ut-hint">
+              These are the splits available for this game in the overlay's LiveSplit
+              widget — switch between them from the overlay's over-focus panel while
+              playing. PB, best segments and attempts are kept per splits file and
+              persist across restarts.
+            </p>
+            <ul id="splits-list" class="slots-list"></ul>
+          </div>
+        </div>
+
+        <!-- Settings -->
+        <div id="settings-screen" class="screen hidden">
+          <header>
+            <h1>
+              <span class="title-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M4 14h2v6H4zm6 0h2v6h-2zm-4-2h4v2H6zm0 8h4v2H6zm-4-4h2v2H2zm20-8h-4V6h4z"/><path d="M10 16h12v2H10zm4-8H2V6h12zm6-4v2h-2V4zm0 6V8h-2v2zm-6-8h4v2h-4zm0 10h4v-2h-4zm-2-8h2v2h-2zm0 6h2V8h-2z"/></svg></span>
+              Settings
+            </h1>
+          </header>
+          <div class="settings-body">
+            <fieldset class="ut-group">
+              <legend>Personalization</legend>
+              <div class="ut-row">
+                <span class="ut-row-label">Theme</span>
+                <select id="settings-theme-select" class="ut-input"></select>
+              </div>
+              <p class="ut-hint">Pick a look inspired by a location from Undertale or Deltarune.</p>
+            </fieldset>
+
+            <fieldset class="ut-group">
+              <legend>Updates</legend>
+              <label class="ut-row" for="settings-update-toggle">
+                <span class="ut-row-label">Check for updates on launch</span>
+                <input type="checkbox" id="settings-update-toggle" class="ut-checkbox" />
+              </label>
+              <p class="ut-hint">
+                Checks GitHub for a newer release when Dog Shrine starts, and, if one's
+                found, downloads it and restarts into it automatically before the app
+                window opens. Your saves, slots, backups, and settings live outside
+                the app's install folder and are never touched by an update. Turn this
+                off to update manually instead, from the button below.
+              </p>
+              <div class="settings-actions">
+                <button id="settings-update-check">Check now</button>
+                <span id="settings-update-status" class="ut-hint"></span>
+              </div>
+            </fieldset>
+
+            <fieldset class="ut-group">
+              <legend>Sound</legend>
+              <label class="ut-row" for="settings-sounds-toggle">
+                <span class="ut-row-label">Enable sounds</span>
+                <input type="checkbox" id="settings-sounds-toggle" class="ut-checkbox" />
+              </label>
+              <p class="ut-hint">
+                Sounds are used for things such as [[HYPERLINK BLOCKED]] — turn this off if
+                you'd rather Dog Shrine stayed silent.
+              </p>
+            </fieldset>
+
+            <fieldset class="ut-group" id="settings-overlay-group">
+              <legend>Overlay</legend>
+              <label class="ut-row" for="ov-enabled">
+                <span class="ut-row-label">Enable overlay</span>
+                <input type="checkbox" id="ov-enabled" class="ut-checkbox" />
+              </label>
+              <p class="ut-hint">
+                Shows a speedrunner overlay on top of a running game &mdash; a LiveSplit
+                timer and a live keystroke display. Turn this off to disable every
+                overlay feature and its hotkeys below.
+              </p>
+
+              <div id="ov-children" class="overlay-children">
+                <div class="overlay-subhead">Widgets</div>
+                <label class="ut-row" for="ov-livesplit-enabled">
+                  <span class="ut-row-label">LiveSplit timer</span>
+                  <input type="checkbox" id="ov-livesplit-enabled" class="ut-checkbox" data-widget="livesplit.enabled" />
+                </label>
+                <label class="ut-row ov-indent" for="ov-livesplit-pop">
+                  <span class="ut-row-label">Show as its own window</span>
+                  <input type="checkbox" id="ov-livesplit-pop" class="ut-checkbox" data-widget="livesplit.poppedOut" />
+                </label>
+                <label class="ut-row" for="ov-keystrokes-enabled">
+                  <span class="ut-row-label">Keystroke display</span>
+                  <input type="checkbox" id="ov-keystrokes-enabled" class="ut-checkbox" data-widget="keystrokes.enabled" />
+                </label>
+                <label class="ut-row ov-indent" for="ov-keystrokes-pop">
+                  <span class="ut-row-label">Show as its own window</span>
+                  <input type="checkbox" id="ov-keystrokes-pop" class="ut-checkbox" data-widget="keystrokes.poppedOut" />
+                </label>
+                <label class="ut-row ov-indent" for="ov-keystrokes-bps">
+                  <span class="ut-row-label">Show text-boxes / second counter</span>
+                  <input type="checkbox" id="ov-keystrokes-bps" class="ut-checkbox" data-widget="keystrokes.showBps" />
+                </label>
+                <div class="settings-actions">
+                  <button id="ov-keystrokes-config">Configure keys…</button>
+                </div>
+                <p class="ut-hint" id="ov-keystrokes-note"></p>
+
+                <div class="overlay-subhead">Splits</div>
+                <p class="ut-hint">
+                  Splits are managed from the in-game overlay: while a game is running,
+                  press your over-focus hotkey (F8 by default) to load a .lss, switch
+                  between saved splits, and export. Splits and their PB / best segments
+                  are saved <strong>per game</strong> and kept across restarts.
+                </p>
+                <div class="ut-row">
+                  <span class="ut-row-label">Best-segment sound</span>
+                  <span id="ov-gold-sound" class="ut-hint path-text">none</span>
+                </div>
+                <div class="settings-actions">
+                  <button id="ov-gold-sound-btn">Choose sound…</button>
+                  <button id="ov-gold-sound-test" class="ghost">Test</button>
+                  <button id="ov-gold-sound-clear" class="ghost">Clear</button>
+                </div>
+
+                <div class="overlay-subhead">Hotkeys</div>
+                <div class="ut-row"><span class="ut-row-label">Split / start</span><button class="hotkey-btn" data-hotkey="split"></button></div>
+                <div class="ut-row"><span class="ut-row-label">Reset</span><button class="hotkey-btn" data-hotkey="reset"></button></div>
+                <div class="ut-row"><span class="ut-row-label">Undo split</span><button class="hotkey-btn" data-hotkey="undo"></button></div>
+                <div class="ut-row"><span class="ut-row-label">Skip split</span><button class="hotkey-btn" data-hotkey="skip"></button></div>
+                <div class="ut-row"><span class="ut-row-label">Pause</span><button class="hotkey-btn" data-hotkey="pause"></button></div>
+                <div class="ut-row"><span class="ut-row-label">Toggle over-focus</span><button class="hotkey-btn" data-hotkey="toggleFocus"></button></div>
+                <div class="ut-row"><span class="ut-row-label">Start / stop recording</span><button class="hotkey-btn" data-hotkey="recordToggle"></button></div>
+                <div class="ut-row"><span class="ut-row-label">Save instant replay</span><button class="hotkey-btn" data-hotkey="saveReplay"></button></div>
+                <p class="ut-hint">Click a key box, then press the key you want. Press Esc to clear it.</p>
+                <p class="ut-hint warn-hint" id="ov-hotkey-warn"></p>
+
+                <div class="overlay-subhead">Recording</div>
+                <div class="ut-row"><span class="ut-row-label">Save folder</span><span id="ov-rec-folder" class="ut-hint path-text"></span></div>
+                <div class="settings-actions">
+                  <button id="ov-rec-folder-btn">Change folder</button>
+                </div>
+                <label class="ut-row" for="ov-rec-replay">
+                  <span class="ut-row-label">Instant replay length (seconds)</span>
+                  <input type="number" id="ov-rec-replay" class="ut-input" min="5" max="300" step="5" />
+                </label>
+                <label class="ut-row" for="ov-rec-audio">
+                  <span class="ut-row-label">Capture system audio</span>
+                  <input type="checkbox" id="ov-rec-audio" class="ut-checkbox" />
+                </label>
+                <p class="ut-hint">
+                  Records the game window. Works best over borderless or windowed games
+                  &mdash; exclusive fullscreen can hide the overlay and block capture.
+                </p>
+              </div>
+            </fieldset>
+
+            <fieldset class="ut-group">
+              <legend>About</legend>
+              <div class="ut-row"><span class="ut-row-label">Version</span><span id="settings-version" class="ut-hint"></span></div>
+              <div class="ut-row"><span class="ut-row-label">App data folder</span><span id="settings-userdata" class="ut-hint path-text"></span></div>
+              <div class="settings-actions">
+                <button id="settings-open-userdata">Open folder</button>
+                <button id="settings-copy-userdata" class="ghost">Copy path</button>
+              </div>
+            </fieldset>
+
+            <fieldset class="ut-group">
+              <legend>Backups</legend>
+              <p class="ut-hint">
+                Every save edit or slot load backs up the live save first. These add up
+                over time — clear them per game if you don't need the history.
+              </p>
+              <ul id="settings-backups-list" class="slots-list"></ul>
+            </fieldset>
+
+            <fieldset class="ut-group">
+              <legend>Credits &amp; Licenses</legend>
+              <p class="ut-hint">
+                Dog Shrine is made by
+                <button id="credits-author-link" class="link-btn">Acciaw</button>.
+              </p>
+              <div class="legal-notice">
+                <p>
+                  Dog Shrine is an unofficial, fan-made project — built by a fan, for
+                  fellow fans. It isn't affiliated with, endorsed by, or sponsored by
+                  Toby Fox or any fan game's creators, and it will always stay free.
+                </p>
+              </div>
+              <p class="ut-hint">
+                Undertale and Deltarune — including their names, characters, and
+                artwork — are © Toby Fox. Undertale Yellow and any other fan games
+                listed here remain the property of their respective creators. Dog
+                Shrine doesn't host or redistribute any game files — it only
+                launches and manages saves for games already installed on your
+                computer.
+              </p>
+              <p class="ut-hint">Sidebar &amp; header icons — pixelarticons, MIT License, © 2019 Gerrit Halfmann.</p>
+              <p class="ut-hint">Pixel font — VT323, SIL Open Font License 1.1, © 2011 The VT323 Project Authors.</p>
+              <p class="ut-hint">
+                Deltarune's save editor opens
+                <button id="credits-tenna-link" class="link-btn">tennaproject.com</button>
+                and Undertale Yellow's opens
+                <button id="credits-uty-editor-link" class="link-btn">save.yellow.undertale.wiki</button>
+                in an embedded browser view — separate community projects, not made by
+                Dog Shrine. No code from either is bundled here; using them is subject
+                to their own site's terms.
+              </p>
+            </fieldset>
+          </div>
+        </div>
+
+        <!-- Tem Shop (Store) -->
+        <div id="store-screen" class="screen hidden">
+          <header>
+            <h1>
+              <span class="title-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M3 13h2v8H3zm2 8h14v2H5zm14-8h2v8h-2zm-9-2h4v2h-4zm4-2h4v2h-4zm4 2h4v2h-4zM6 9h4v2H6zm-4 2h4v2H2zM0 7h2v4H0zm2-2h2v2H2zm18 0h2v2h-2zm2 2h2v4h-2zM4 3h16v2H4zm6 12h4v2h-4zm-2 2h2v4H8zm6 0h2v4h-2z"/></svg></span>
+              Tem Shop
+            </h1>
+          </header>
+          <div class="store-body">
+            <p class="ut-hint">
+              Not open yet! When it is, this is where fangame creators' download
+              links will show up — we'd just point you at their own hosting, never
+              host the files ourselves.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- easter egg -->
+    <div id="sans-fight-overlay" class="sans-fight-overlay hidden">
+      <webview id="sans-fight-view"></webview>
+    </div>
+
+    <script src="theme.js"></script>
+    <script src="overlay/lss.js"></script>
+    <script src="updater.js"></script>
+    <script src="ut-editor.js"></script>
+    <script src="slots.js"></script>
+    <script src="splits.js"></script>
+    <script src="settings.js"></script>
+    <script src="store.js"></script>
+    <script src="sans-fight.js"></script>
+    <script src="renderer.js"></script>
+  </body>
+</html>

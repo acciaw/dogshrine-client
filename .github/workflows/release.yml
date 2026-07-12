@@ -1,0 +1,46 @@
+name: Release
+
+# builds the Dog Shrine desktop launcher for Windows, Linux, and macOS
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 26
+
+      - run: npm ci
+        shell: bash
+
+      - name: Build and publish
+        shell: bash
+        run: |
+          echo "node: $(node -v)"
+          echo "pwd: $(pwd)"
+          set +e
+          node ./node_modules/electron-builder/out/cli/cli.js --publish always > build-output.log 2>&1
+          code=$?
+          set -e
+          echo "---- build-output.log (${code} exit) ----"
+          cat build-output.log
+          echo "---- end build-output.log ----"
+          exit $code
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # unsigned build: no Apple Developer cert is configured, so force electron-builder
+          # to skip auto-discovering a signing identity instead of erroring looking for one
+          CSC_IDENTITY_AUTO_DISCOVERY: false
